@@ -1,21 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-def roll(X, step, axis = 1):
-    if axis == 1:
-        match step:
-            case 1:
-                return np.concatenate((np.reshape(X[:,-1], (-1,1)), X[:,:-1]), axis=1)
-            case -1:
-                return np.concatenate((X[:,1:], np.reshape(X[:,0], (-1,1))), axis=1)
-    elif axis == 0:
-        match step:
-            case 1:
-                return np.concatenate((np.reshape(X[-1,:], (1,-1)), X[:-1,:]), axis=0)
-            case -1:
-                return np.concatenate((X[1:,:], np.reshape(X[0,:], (1,-1))), axis=0)
-
 def laplace(X, h=1):
     # For 2d cartesian coordinates:
     # delta f = d^2f/dx^2 + d^2f/dy^2
