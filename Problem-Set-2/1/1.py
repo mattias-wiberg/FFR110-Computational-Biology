@@ -11,7 +11,7 @@ q = 8 # dimless
 t = 0.1 # Tau step size dimless
 h = 1 # Step size
 L = 100 # Habitat size
-tau_max = 7000
+tau_max = 3000
 
 
 def pop_init_ramp(u0, x0, L):
@@ -45,10 +45,10 @@ def run_solver(pop_matrix, tau_max, t, p, q, L, h):
 fig, (ax1, ax2) = plt.subplots(1, 2)
 def plot_pop(tau, pop_matrix):
     ax2.plot(pop_matrix[tau,:],derivative(pop_matrix[tau,:],L,h))
-    ax2.set(xlabel=r"u($\xi$, "+str(tau)+")", ylabel=r"$\partial u/ \partial \xi$")
+    ax2.set(xlabel=r"u($\xi$, $\tau$)", ylabel=r"$\partial u/ \partial \xi$")
 
     ax1.plot(pop_matrix[tau,:])
-    ax1.set(xlabel=r"$\xi$", ylabel=r"u($\xi$, "+str(tau)+")")
+    ax1.set(xlabel=r"$\xi$", ylabel=r"u($\xi$, $\tau$)")
     plt.draw()
     plt.pause(0.1)
 
@@ -70,8 +70,9 @@ def get_c(pop_matrix, tau, dtau, epsilon=0.25):
     return((pos2-pos1)/dtau/t)
 
 #%% i)  
-u0 = 3*5.56155#1.1*1.43845 #1.43845,1.1*.43845 # ramp upper bound stable
-x0 = 50#20 #50,50 # ramp location
+fp = [5.56155, 1.43845, 0]
+u0 = 3*fp[0] # ramp upper bound stable
+x0 = 50 # ramp location
 pop_matrix = np.zeros([tau_max+1, L]) # rows tau, cols position, value pop
 #pop_matrix[0,:] = pop_init_ramp(u0, x0, L)
 pop_matrix[0,:] = pop_init_smooth(u0, x0, L)
@@ -82,5 +83,7 @@ run_solver(pop_matrix, tau_max, t, p, q, L, h)
 #plot_pop(2000, pop_matrix)
 #%% plotter
 for tau in range(tau_max):
-    if tau % 20== 0:
+    if tau % 50== 0:
         plot_pop(tau, pop_matrix)
+
+input("Press Enter to continue...")
