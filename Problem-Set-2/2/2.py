@@ -11,7 +11,7 @@ def laplace(X, h=1):
     return d2fdx2 + d2fdy2
 
 L = 128; a = 3; b = 8; Du = 1; u_star = a; v_star = b/a
-Dv = [2.3, 3, 5, 9]; Dv = Dv[3]
+Dv = [2.3, 3, 5, 9]; Dv = Dv[0]
 pertubation = 0.1
 tmax = 10000
 dt = 0.01
@@ -31,8 +31,9 @@ for t in np.arange(0,tmax,dt):
     if int(t*100)%1000==0:
         progress = round((t/tmax)*100,2)
         print(f"Simulating: {progress} %")
-    if int(t*100)%10000==0:
-        progress = round((t/tmax)*100,2)
-        print(f"Simulating: {progress} %")
 
+plt.imshow(u, vmin=0, vmax=12, cmap="binary")
+plt.title("t="+str(t)+" Dv="+str(Dv))
+plt.colorbar()
+plt.show()
 input("Done")
