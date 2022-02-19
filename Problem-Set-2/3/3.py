@@ -2,13 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-N = 300
+N = 3000
 gamma = 1
-K = 2*gamma
+K = [1,2.1,10]*gamma
+K = K[2]
 O = np.random.uniform(-np.pi/2, np.pi/2, N)
 w = np.random.standard_cauchy(N)
-T = 0.5
-dt = 0.0001
+T = 50
+dt = 0.01
 r = []
 
 
@@ -23,4 +24,6 @@ for t in tqdm(np.arange(0, T, dt)):
     #print(t, np.linalg.norm(r_vec))
 
 plt.plot(np.arange(0,T,dt),r)
+plt.xlabel("t")
+plt.ylabel("r")
 plt.show()
