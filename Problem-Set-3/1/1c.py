@@ -5,7 +5,7 @@ import numpy as np
 
 # (b_n, d_n)
 bd = [(0.1, 0.2), (1, 2), (10, 5)]
-idx_case = 0
+idx_case = 1
 dt = 0.01
 n_samples = 1000000
 td = []
@@ -67,35 +67,36 @@ def plot():
     fig, ax = plt.subplots(2, sharey=True, sharex=True)
 
     ax[0].set_title(rf"$t_b$, $b_n$={bd[idx_case][0]}")
-    ax[0].hist(tb, density=True)
-    """
-    freq, bins, patches = plt.hist(tb, density=True)
+    #ax[0].hist(tb, density=True)
+    
+    freq, bins, patches = ax[0].hist(tb, density=True)
+    ax[0].clear()
     freq = np.log(freq)
     new_bins = []
     for i in range(1,len(bins)):
         new_bins.append((bins[i-1] + bins[i])/2)
     ax[0].plot(new_bins, freq)
     ax[0].plot(np.linspace(min(new_bins),max(new_bins)), np.exp(-np.linspace(min(new_bins),max(new_bins))*bd[idx_case][0]))
-    """
+    
 
     ax[1].set_title(rf"$t_d$, $d_n$={bd[idx_case][1]}")
-    ax[1].hist(td, density=True)
-
-    """
-    freq, bins, patches = plt.hist(td, density=True)
+    #ax[1].hist(td, density=True)
+    
+    freq, bins, patches = ax[1].hist(td, density=True)
+    ax[1].clear()
     freq = np.log(freq)
     new_bins = []
     for i in range(1,len(bins)):
         new_bins.append((bins[i-1] + bins[i])/2)
     ax[1].plot(new_bins, freq)
-    """
+    
 
     fig.tight_layout()  
     plt.show()
 
 for i in tqdm(range(n_samples)):
     run_sample_double()
-#plot()
+plot()
 print(f"td: {np.round(100*len(td)/(len(td)+len(tb)),2)} % tb: {np.round(100*len(tb)/(len(td)+len(tb)),2)} %")
 print(f"mean(tb): {np.round(np.mean(np.array(tb))*1000, 2)} ms")
 print(f"mean(td): {np.round(np.mean(np.array(td))*1000, 2)} ms")
