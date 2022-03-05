@@ -3,6 +3,7 @@ from random import random
 from tqdm import tqdm
 import numpy as np
 from collections import Counter
+import pickle
 
 # (b_n, d_n)
 bd = [(0.1, 0.2), (1, 2), (10, 5)]
@@ -49,6 +50,8 @@ for i in tqdm(range(n_samples)):
     td.append(get_time(bd[idx_case][1]))
 
 plot()
+#pickle.dump(tb, open(f"tb_{bd[idx_case][0]}.p", "wb"))
+#pickle.dump(td, open(f"td_{bd[idx_case][1]}.p", "wb"))
 print(f"mean(tb): {np.round(np.mean(np.array(tb)), 2)} s")
 print(f"mean(td): {np.round(np.mean(np.array(td)), 2)} s")
 
