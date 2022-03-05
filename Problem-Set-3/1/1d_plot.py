@@ -6,7 +6,7 @@ import pickle
 import scipy.stats as stats
 import math
 
-n = pickle.load(open("n0_3_N_6_Text_14.71_b_10_d_5.p", "rb" ))
+n = pickle.load(open("n0_3_N_6_Text_8.44_b_10_d_5.p", "rb" ))
 dt = 0.01
 seconds_to_plot = [10, 14.71, 20]
 index_to_plot = list(map(lambda i:int(i/dt), seconds_to_plot))

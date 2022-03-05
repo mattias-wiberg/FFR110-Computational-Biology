@@ -49,9 +49,9 @@ for i in tqdm(range(n_samples)):
     tb.append(get_time(bd[idx_case][0]))
     td.append(get_time(bd[idx_case][1]))
 
+print(f"mean(tb): {np.round(np.mean(np.array(tb)), 2)} s")
+print(f"mean(td): {np.round(np.mean(np.array(td)), 2)} s")
 plot()
 #pickle.dump(tb, open(f"tb_{bd[idx_case][0]}.p", "wb"))
 #pickle.dump(td, open(f"td_{bd[idx_case][1]}.p", "wb"))
-print(f"mean(tb): {np.round(np.mean(np.array(tb)), 2)} s")
-print(f"mean(td): {np.round(np.mean(np.array(td)), 2)} s")
 
