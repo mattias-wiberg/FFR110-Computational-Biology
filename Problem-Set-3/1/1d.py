@@ -10,7 +10,7 @@ td = pickle.load(open(f"td_{bd[idx_case][1]}.p", "rb" ))
 # beta = alpha/2
 n0 = 3
 N = 6
-R = 2
+R = 100
 dt = 0.01
 Tmax = 50
 max_index = int(Tmax/dt)
@@ -30,8 +30,9 @@ for real in tqdm(range(R)):
             break
         if pick_index == 0: # Death
             n[real,index:index+pick] = n[real,index]
-            n[real,index+pick] = n[real,index] - 1
-            if n[real,index] - 1 == 0:
+            new_n = n[real,index] - 1
+            n[real,index+pick] = new_n
+            if new_n == 0:
                 # Extinction
                 index += pick
                 T_ext.append(index*dt)
@@ -39,7 +40,7 @@ for real in tqdm(range(R)):
         elif pick_index == 1: # Birth
             n[real,index:index+pick] = n[real,index]
             new_n = n[real,index] + 1
-            if new_n >= N:
+            if new_n > N:
                 n[real,index+pick] = n[real,index]
             else:
                 n[real,index+pick] = new_n
@@ -47,6 +48,7 @@ for real in tqdm(range(R)):
     n[real,index:] = n[real,index]
 
 avg_t_ext = round(sum(T_ext)/len(T_ext),2)
+print(f"Avgerage Text: {avg_t_ext} ({len(T_ext)} entries)")
 
 pickle.dump(n, open(f"n0_{n0}_N_{N}_Text_{avg_t_ext}_b_{bd[idx_case][0]}_d_{bd[idx_case][1]}.p", "wb" ) )
 
